@@ -15,11 +15,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- * @author Nico (JumpingPxl) Middendorf
- * @date 16.06.2019
- */
-
 public class ModGuiDisconnected extends GuiScreen {
 
 	private JumpingAddon jumpingAddon;
@@ -38,12 +33,13 @@ public class ModGuiDisconnected extends GuiScreen {
 				jumpingAddon.getParentScreenMappings()).get(guiDisconnected);
 		this.message = (IChatComponent) ReflectionHelper.findField(GuiDisconnected.class,
 				jumpingAddon.getMessageMappings()).get(guiDisconnected);
-		this.reason = (String) ReflectionHelper.findField(GuiDisconnected.class,
-				jumpingAddon.getReasonMappings()).get(guiDisconnected);
+		this.reason =
+				(String) ReflectionHelper.findField(GuiDisconnected.class, jumpingAddon.getReasonMappings()).get(guiDisconnected);
 		this.secondsLeft = jumpingAddon.getSettings().getSecondsUntilReconnect();
-		if (message.getUnformattedText().equals(I18n.format("disconnect.loginFailedInfo",
-				I18n.format("disconnect.loginFailedInfo.invalidSession"))))
+		if (message.getUnformattedText().equals(I18n.format("disconnect.loginFailedInfo", I18n.format("disconnect" +
+				".loginFailedInfo.invalidSession")))) {
 			throw new IllegalStateException();
+		}
 	}
 
 	@Override
@@ -52,10 +48,11 @@ public class ModGuiDisconnected extends GuiScreen {
 		this.multilineMessage = this.fontRendererObj.listFormattedStringToWidth(this.message.getFormattedText(),
 				this.width - 50);
 		this.reasonHeight = this.multilineMessage.size() * this.fontRendererObj.FONT_HEIGHT;
-		this.buttonList.add(new GuiButton(0, this.width / 2 - 10, this.height / 2 + this.reasonHeight / 2 +
-				this.fontRendererObj.FONT_HEIGHT, 125, 20, I18n.format("gui.toMenu")));
-		this.reconnectButton = new GuiButton(1, this.width / 2 - 115, this.height / 2 + this.reasonHeight / 2 +
-				this.fontRendererObj.FONT_HEIGHT, 100, 20, "Reconnect in: §a" + this.secondsLeft + "s");
+		this.buttonList.add(new GuiButton(0, this.width / 2 - 10,
+				this.height / 2 + this.reasonHeight / 2 + this.fontRendererObj.FONT_HEIGHT, 125, 20, I18n.format("gui.toMenu")));
+		this.reconnectButton = new GuiButton(1, this.width / 2 - 115,
+				this.height / 2 + this.reasonHeight / 2 + this.fontRendererObj.FONT_HEIGHT, 100, 20,
+				"Reconnect in: §a" +  this.secondsLeft + "s");
 		this.buttonList.add(reconnectButton);
 		timer = new Timer();
 		timer.schedule(new TimerTask() {
@@ -95,11 +92,12 @@ public class ModGuiDisconnected extends GuiScreen {
 		this.drawCenteredString(this.fontRendererObj, this.reason, this.width / 2,
 				this.height / 2 - this.reasonHeight / 2 - this.fontRendererObj.FONT_HEIGHT * 2, 11184810);
 		int i = this.height / 2 - this.reasonHeight / 2;
-		if (this.multilineMessage != null)
+		if (this.multilineMessage != null) {
 			for (Object object : this.multilineMessage) {
 				this.drawCenteredString(this.fontRendererObj, String.valueOf(object), this.width / 2, i, 16777215);
 				i += this.fontRendererObj.FONT_HEIGHT;
 			}
+		}
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		if (secondsLeft == 0) {
 			Minecraft.getMinecraft().displayGuiScreen(new GuiConnecting(LabyModCore.getMinecraft().getCustomMainMenu(),

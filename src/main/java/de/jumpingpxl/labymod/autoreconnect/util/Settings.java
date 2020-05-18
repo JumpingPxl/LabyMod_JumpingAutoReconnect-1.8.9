@@ -8,11 +8,6 @@ import net.labymod.utils.Material;
 
 import java.util.List;
 
-/**
- * @author Nico (JumpingPxl) Middendorf
- * @date 16.06.2019
- */
-
 @Getter
 public class Settings {
 
@@ -35,7 +30,7 @@ public class Settings {
 	public void loadConfig() {
 		enabled = !getConfig().has("enabled") || getConfig().get("enabled").getAsBoolean();
 		secondsUntilReconnect = getConfig().has("secondsUntilReconnect") ?
-				getConfig().get("secondsUntilReconnect").getAsInt() : 5;
+				getConfig().get("secondsUntilReconnect") .getAsInt() : 5;
 	}
 
 	public void fillSettings(List<SettingsElement> list) {
