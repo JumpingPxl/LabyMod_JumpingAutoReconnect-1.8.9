@@ -1,7 +1,6 @@
 package de.jumpingpxl.labymod.autoreconnect.util;
 
 import de.jumpingpxl.labymod.autoreconnect.JumpingAddon;
-import net.labymod.core.LabyModCore;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiDisconnected;
@@ -113,8 +112,7 @@ public class ModGuiDisconnected extends GuiScreen {
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		if (secondsLeft == 0) {
 			Minecraft.getMinecraft().displayGuiScreen(
-					new GuiConnecting(LabyModCore.getMinecraft().getCustomMainMenu(),
-							Minecraft.getMinecraft(), jumpingAddon.getLastServer()));
+					new GuiConnecting(parentScreen, Minecraft.getMinecraft(), jumpingAddon.getLastServer()));
 		}
 	}
 
@@ -134,8 +132,7 @@ public class ModGuiDisconnected extends GuiScreen {
 		if (button.id == 1) {
 			timer.cancel();
 			Minecraft.getMinecraft().displayGuiScreen(
-					new GuiConnecting(LabyModCore.getMinecraft().getCustomMainMenu(),
-							Minecraft.getMinecraft(), jumpingAddon.getLastServer()));
+					new GuiConnecting(parentScreen, Minecraft.getMinecraft(), jumpingAddon.getLastServer()));
 		}
 	}
 }
